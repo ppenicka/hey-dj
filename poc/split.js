@@ -2,9 +2,8 @@ const ffmpeg = require('ffmpeg');
 const fs = require('fs');
 const identifySegment = require('./identify');
 
-function getSegment (input, start, end, output) {
+function getSegment (source, start, end, output) {
   try {
-    var source = new ffmpeg(`${input}`);
     source.then(function (audio) {
       console.log('The audio is ready to be processed');
       audio.addCommand('-ss', `${start}`);
@@ -24,13 +23,35 @@ function getSegment (input, start, end, output) {
   }
 }
 
-for (let i = 0; i < 11; i++) {
-  getSegment('./set.mp3', 60 + i*180, 72 + i*180, `./set-${i}.mp3`);
+function getSegments (input, interval) {
+  const source = new ffmpeg(`${input}`);
+  let length = 0;
+  let segments = 0;
+
+  source.then((audio) => {
+    length = audio.metadata.duration['seconds'];
+    return true;
+  }).then(() => {
+      setTimeout(() => {
+        console.log('Length of the set is:', length);
+      }, 1000);
+
+      segments = Math.floor((length - 60) / interval);
+      console.log(`Number of ${interval}-second segments:`, segments);
+
+      for (let i = 0; i < segments; i++) {
+        getSegment(source, 60 + i * interval, 72 + i * interval, `./set-${i}.mp3`);
+      }
+
+    }).then(() => {
+    for (let i = 0; i < segments; i++) {
+      setTimeout(async () => {
+        console.log(`Requesting identification of segment ${i}`);
+        identifySegment(`./set-${i}.mp3`);
+      }, i*1000);
+    }
+  })
+
 }
 
-for (let i = 0; i < 11; i++) {
-  setTimeout(() => {
-    console.log(`Calling segment ${i}`);
-    identifySegment(`./set-${i}.mp3`)
-  }, i*1000);
-}
+getSegments('./set.mp3', 500);
