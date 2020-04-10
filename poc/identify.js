@@ -23,6 +23,8 @@ function sign(signString, accessSecret) {
     .digest().toString('base64');
 }
 
+function identifySegment (file) {
+
 /**
  * Identifies a sample of bytes
  */
@@ -56,11 +58,12 @@ function identify(data, options, cb) {
   }, cb);
 }
 
-// var bitmap = fs.readFileSync('./test.mp3');
+var bitmap = fs.readFileSync(`${file}`);
 
-// identify(Buffer.from(bitmap), defaultOptions, function (err, httpResponse, body) {
-//   if (err) console.log(err);
-//   console.log(body);
-// });
+identify(Buffer.from(bitmap), defaultOptions, function (err, httpResponse, body) {
+  if (err) console.log(err);
+  console.log(body);
+});
+}
 
-module.exports = identify;
+module.exports = identifySegment;
