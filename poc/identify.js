@@ -1,8 +1,6 @@
-const url = require('url');
 const fs = require('fs');
 const crypto = require('crypto');
 const request = require('request');
-const ffmpeg = require('ffmpeg');
 
 // Replace "###...###" below with your project's host, access_key and access_secret.
 var defaultOptions = {
@@ -58,9 +56,11 @@ function identify(data, options, cb) {
   }, cb);
 }
 
-var bitmap = fs.readFileSync('./test.mp3');
+// var bitmap = fs.readFileSync('./test.mp3');
 
-identify(Buffer.from(bitmap), defaultOptions, function (err, httpResponse, body) {
-  if (err) console.log(err);
-  console.log(body);
-});
+// identify(Buffer.from(bitmap), defaultOptions, function (err, httpResponse, body) {
+//   if (err) console.log(err);
+//   console.log(body);
+// });
+
+module.exports = identify;
