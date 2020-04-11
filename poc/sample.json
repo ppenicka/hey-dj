@@ -1,0 +1,188 @@
+{
+  "metadata": {
+    "timestamp_utc": "2020-04-11 15:50:13",
+    "music": [
+      {
+        "play_offset_ms": 110280,
+        "artists": [
+          {
+            "name": "Bobby McFerrin"
+          }
+        ],
+        "lyrics": {
+          "copyrights": [
+            "Warner\\/Chappell Music",
+            "Inc.",
+            "CONCORD MUSIC PUBLISHING LLC"
+          ]
+        },
+        "acrid": "4965323f6c08f54956c8b96b54603d1b",
+        "genres": [
+          {
+            "name": "World"
+          },
+          {
+            "name": "Central America\\/Carribean"
+          },
+          {
+            "name": "Jazz"
+          },
+          {
+            "name": "Vocal jazz"
+          },
+          {
+            "name": "Pop"
+          },
+          {
+            "name": "Reggae"
+          }
+        ],
+        "album": {
+          "name": "The Best of Bobby McFerrin"
+        },
+        "label": "Blue Note Records",
+        "external_ids": {
+          "iswc": "T-070.247.268-1",
+          "isrc": "USBN28600014",
+          "upc": "724385332951"
+        },
+        "result_from": 1,
+        "contributors": {
+          "composers": [
+            "Bobby McFerrin"
+          ],
+          "lyricists": [
+            "JULE STYNE",
+            "SAMMY CAHN"
+          ]
+        },
+        "title": "Thinkin' About Your Body",
+        "duration_ms": 196640,
+        "score": 100,
+        "external_metadata": {
+          "musicbrainz": [
+            {
+              "track": {
+                "id": "96183ba1-6eb7-47ac-98f7-d530e8958baa"
+              }
+            },
+            {
+              "track": {
+                "id": "a0c897ec-eb31-47fc-ba7f-ae5735f8c778"
+              }
+            }
+          ],
+          "deezer": {
+            "track": {
+              "name": "Thinkin' About Your Body",
+              "id": "3152169"
+            },
+            "artists": [
+              {
+                "name": "Bobby McFerrin",
+                "id": "3059"
+              }
+            ],
+            "album": {
+              "name": "The Best of Bobby McFerrin",
+              "id": "303086"
+            }
+          },
+          "spotify": {
+            "track": {
+              "name": "Thinkin' About Your Body",
+              "id": "7Ivi1qpPhlNKeGRMjmGxMC"
+            },
+            "artists": [
+              {
+                "name": "Bobby McFerrin",
+                "id": "2FjkZT851ez950cyPjeYid"
+              }
+            ],
+            "album": {
+              "name": "The Best of Bobby McFerrin",
+              "id": "0L2VM5iuoVRAQXvw2lyRzV"
+            }
+          },
+          "musicstory": {
+            "track": {
+              "id": "3941219"
+            },
+            "release": {
+              "id": "325571"
+            },
+            "album": {
+              "id": "46808"
+            }
+          },
+          "youtube": {
+            "vid": "_4BhsYbXwf4"
+          }
+        },
+        "release_date": "1996-10-31"
+      },
+      {
+        "label": "LOUNGEMASTERS.ORG",
+        "play_offset_ms": 156480,
+        "external_ids": {
+          "isrc": "USLZJ1858620",
+          "upc": "192650809079"
+        },
+        "artists": [
+          {
+            "name": "Virgin Magnetic Material"
+          }
+        ],
+        "result_from": 1,
+        "acrid": "653009a65bf87986a6e836c89ef28bd2",
+        "title": "Thinkin' About Your Body - Bobby McFerrin",
+        "duration_ms": 277368,
+        "album": {
+          "name": "Twenty-Six"
+        },
+        "score": 100,
+        "external_metadata": {
+          "deezer": {
+            "track": {
+              "name": "Thinkin' About Your Body",
+              "id": "620556902"
+            },
+            "artists": [
+              {
+                "id": 4714044,
+                "name": "Virgin Magnetic Material"
+              }
+            ],
+            "album": {
+              "id": 84955792
+            }
+          },
+          "spotify": {
+            "track": {
+              "name": "Thinkin' About Your Body - Bobby McFerrin",
+              "id": "2fAJWhnWgWHZoiJ2X4U5W2"
+            },
+            "artists": [
+              {
+                "name": "Virgin Magnetic Material",
+                "id": "04KTmShSJF84eXqUcis0Qw"
+              }
+            ],
+            "album": {
+              "name": "Twenty-Six",
+              "id": "493FKBY34KzO2mxQZFTKQ4"
+            }
+          }
+        },
+        "release_date": "2018-10-06"
+      }
+    ]
+  },
+  "cost_time": 0.79299998283386,
+  "status": {
+    "msg": "Success",
+    "version": "1.0",
+    "code": 0
+  },
+  "result_type": 0
+}\n
