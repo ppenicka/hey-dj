@@ -8,11 +8,8 @@ function cutSegment (source, start, end, output, segmentId) {
       audio.addCommand('-ss', `${start}`);
       audio.addCommand('-to', `${end}`);
       audio.save(`${output}`, (err, files) => {
-        if (err) {
-          console.log('Error: ', err);
-        } else {
-          console.log(`Audio segment ${segmentId} extracted and saved to `, files);
-        }
+        if (err) console.log('Error: ', err);
+        else console.log(`Audio segment ${segmentId} extracted and saved to `, files);
       });
     }, function (err) {
       console.log('Error: ', err);
@@ -49,33 +46,18 @@ function getTracklist (input, interval) {
     }, 80000);
   }).finally(() => {
     setTimeout(() => {
-
-      for (let i = 0; i < segments; i++) {
-        if (results[i].metadata) {
-          console.log(`Track #${i + 1}: ${results[i].metadata.music[0].artists[0].name} - ${results[i].metadata.music[0].title}`);
-        } else {
-          console.log(`Track #${i + 1}: unidentified`);
-        }
-      }
-
-      console.log('Number of tracks before merging duplicates:', results.length, segments);
-
+      // merge duplicates
       let i = 0;
       while (i < segments - 1) {
-        if ((results[i].metadata && results[i + 1].metadata) && (results[i].metadata.music[0].title === results[i + 1].metadata.music[0].title)) {
+        if ((!results[i].metadata && !results[i+1].metadata) ||
+            (results[i].metadata && results[i + 1].metadata) &&
+            (results[i].metadata.music[0].title === results[i + 1].metadata.music[0].title)) {
           results.splice(i + 1, 1);
           segments--;
-        } else if (!results[i].metadata && !results[i+1].metadata) {
-          results.splice(i + 1, 1);
-          segments--;
-        } else {
-          i++;
-        }
+        } else i++;
       }
 
-      console.log('Number of tracks after merging duplicates:', results.length, segments);
-
-
+      // console log tracklist
       for (let i = 0; i < segments; i++) {
         if (results[i].metadata) {
           console.log(`Track #${i + 1}: ${results[i].metadata.music[0].artists[0].name} - ${results[i].metadata.music[0].title}`);
