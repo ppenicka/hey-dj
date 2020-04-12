@@ -1,7 +1,7 @@
 const ffmpeg = require('ffmpeg');
 const fs = require('fs');
 const path = require('path');
-const identifySegment = require('./identify');
+const identifySegment = require('./acrclient');
 
 function cutSegment (source, start, end, output, segmentId) {
   try {
