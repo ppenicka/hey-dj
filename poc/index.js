@@ -25,6 +25,8 @@ function getTracklist (input, interval) {
   let length = 0;
   let segments = 0;
   let results = [];
+  let name = 'set';
+
 
   source.then((audio) => {
     length = audio.metadata.duration['seconds'];
@@ -34,15 +36,16 @@ function getTracklist (input, interval) {
     console.log(`Number of ${interval}-second segments:`, segments);
 
     // extract segment files
+    fs.mkdir(`./tmp/${name}`, () => true);
     for (let i = 0; i < segments; i++) {
-      cutSegment(source, 60 + i * interval, 72 + i * interval, `./tmp/set-${i}.mp3`, i);
+      cutSegment(source, 60 + i * interval, 72 + i * interval, `./tmp/${name}/${i}.mp3`, i);
     }
   }).then(() => {
     setTimeout(() => {
       for (let i = 0; i < segments; i++) {
         setTimeout(() => {
           console.log(`Requesting identification of segment ${i}`);
-          identifySegment(`./tmp/set-${i}.mp3`, i, results);
+          identifySegment(`./tmp/${name}/${i}.mp3`, i, results);
         }, (i + 1) * 1000);
       }
     }, 80000);
@@ -69,15 +72,15 @@ function getTracklist (input, interval) {
       }
 
       // delete segment files
-      fs.readdir('./tmp', (err, files) => {
+      fs.readdir(`./tmp/${name}`, (err, files) => {
         if (err) console.log(err);
         else {
           for (let file of files) {
-            fs.unlink(path.join('./tmp', file), () => true);
+            fs.unlink(path.join(`./tmp/${name}`, file), () => true);
           }
         }
-
       })
+      fs.rmdir(`./tmp/${name}`, () => true);
 
     }, 120000);
   });
