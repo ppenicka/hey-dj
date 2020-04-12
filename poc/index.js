@@ -25,7 +25,7 @@ function getTracklist (input, interval) {
   let length = 0;
   let segments = 0;
   let results = [];
-  let name = 'set';
+  let name = path.basename(input);
 
 
   source.then((audio) => {
