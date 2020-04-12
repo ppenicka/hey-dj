@@ -1,5 +1,6 @@
 const ffmpeg = require('ffmpeg');
 const fs = require('fs');
+const path = require('path');
 const identifySegment = require('./identify');
 
 function cutSegment (source, start, end, output, segmentId) {
@@ -32,15 +33,16 @@ function getTracklist (input, interval) {
     console.log('Length of the set is:', length);
     console.log(`Number of ${interval}-second segments:`, segments);
 
+    // extract segment files
     for (let i = 0; i < segments; i++) {
-      cutSegment(source, 60 + i * interval, 72 + i * interval, `./set-${i}.mp3`, i);
+      cutSegment(source, 60 + i * interval, 72 + i * interval, `./tmp/set-${i}.mp3`, i);
     }
   }).then(() => {
     setTimeout(() => {
       for (let i = 0; i < segments; i++) {
         setTimeout(() => {
           console.log(`Requesting identification of segment ${i}`);
-          identifySegment(`./set-${i}.mp3`, i, results);
+          identifySegment(`./tmp/set-${i}.mp3`, i, results);
         }, (i + 1) * 1000);
       }
     }, 80000);
@@ -65,6 +67,18 @@ function getTracklist (input, interval) {
           console.log(`Track #${i + 1}: unidentified`);
         }
       }
+
+      // delete segment files
+      fs.readdir('./tmp', (err, files) => {
+        if (err) console.log(err);
+        else {
+          for (let file of files) {
+            fs.unlink(path.join('./tmp', file), () => true);
+          }
+        }
+
+      })
+
     }, 120000);
   });
 }
