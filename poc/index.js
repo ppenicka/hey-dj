@@ -20,6 +20,7 @@ function getTracklist (input, interval) {
       console.log('Length of the set is:', length);
       console.log(`Number of ${interval}-second segments:`, segments);
 
+      // identify segments
       for (let i = 0; i < segments; i++) {
         results[i] = identifySegment(source, 60 + i * interval, 72 + i * interval, `./tmp/${name}/${i}.mp3`, i);
       }
@@ -35,9 +36,21 @@ function getTracklist (input, interval) {
         }
 
         Promise.all(results).then((results) => {
+          // merge duplicate results
+          let i = 0;
+          while (i < segments - 1) {
+            if ((results[i].status.msg === 'No result') && (results[i+1].status.msg === 'No result') ||
+                ((results[i].status.msg === 'Success') && (results[i+1].status.msg === 'Success') &&
+                (results[i].metadata.music[0].title === results[i + 1].metadata.music[0].title) &&
+                (results[i].metadata.music[0].duration === results[i + 1].metadata.music[0].duration))) {
+              results.splice(i + 1, 1);
+              segments--;
+            } else i++;
+          }
+
           for (let i = 0; i < segments; i++) {
             if (results[i].status.msg === 'Success') {
-              console.log(`Track #${i + 1}: ${results[i].metadata.music[0].artists[0].name} - ${results[i].metadata.music[0].title}`);
+              console.log(`Track #${i + 1}: ${results[i].metadata.music[0].artists[0].name} - ${results[i].metadata.music[0].title} - ${results[i].metadata.music[0].acrid}`);
             } else {
               console.log(`Track #${i + 1}: unidentified`);
             }
