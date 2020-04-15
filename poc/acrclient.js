@@ -1,16 +1,17 @@
 const fs = require('fs');
 const crypto = require('crypto');
 const request = require('request');
+const config = require('./config');
 
 // Replace "###...###" below with your project's host, access_key and access_secret.
 const defaultOptions = {
-  host: 'identify-eu-west-1.acrcloud.com',
+  host: config.HOST,
   endpoint: '/v1/identify',
   signature_version: '1',
   data_type: 'audio',
   secure: true,
-  access_key: '3a0f85361d6eb3a4528ea83f02f6a645',
-  access_secret: 's3pTyXYaQnPvpUpzNc44hrGymHrjMkcvrXV3k60F'
+  access_key: config.ACCESS_KEY,
+  access_secret: config.ACCESS_SECRET
 };
 
 function buildStringToSign (method, uri, accessKey, dataType, signatureVersion, timestamp) {
