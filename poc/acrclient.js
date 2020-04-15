@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const request = require('request');
 
 // Replace "###...###" below with your project's host, access_key and access_secret.
-var defaultOptions = {
+const defaultOptions = {
   host: 'identify-eu-west-1.acrcloud.com',
   endpoint: '/v1/identify',
   signature_version: '1',
@@ -28,19 +28,19 @@ function sign (signString, accessSecret) {
  */
 function identify (data, options, cb) {
 
-  var current_data = new Date();
-  var timestamp = current_data.getTime() / 1000;
+  const current_date = new Date();
+  const timestamp = current_date.getTime() / 1000;
 
-  var stringToSign = buildStringToSign('POST',
+  const stringToSign = buildStringToSign('POST',
     options.endpoint,
     options.access_key,
     options.data_type,
     options.signature_version,
     timestamp);
 
-  var signature = sign(stringToSign, options.access_secret);
+  const signature = sign(stringToSign, options.access_secret);
 
-  var formData = {
+  const formData = {
     sample: data,
     access_key: options.access_key,
     data_type: options.data_type,
@@ -56,14 +56,11 @@ function identify (data, options, cb) {
   }, cb);
 }
 
-function identifySegment (file, segmentId) {
+function identifySegment (file) {
   return new Promise((resolve, reject) => {
     var bitmap = fs.readFileSync(`${file}`);
     identify(Buffer.from(bitmap), defaultOptions, function (err, httpResponse, body) {
       if (err) console.log(err);
-      console.log('Identified segment ', segmentId);
-      console.log(body);
-
       resolve(JSON.parse(body));
   })
   });

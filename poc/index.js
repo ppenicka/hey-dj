@@ -17,21 +17,17 @@ function getTracklist (input, interval) {
       length = audio.metadata.duration['seconds'];
       segments = Math.floor((length - 60) / interval);
 
-      console.log('Length of the set is:', length);
-      console.log(`Number of ${interval}-second segments:`, segments);
-
       // identify segments
       for (let i = 0; i < segments; i++) {
-        results[i] = identifySegment(source, 60 + i * interval, 72 + i * interval, `./tmp/${name}/${i}.mp3`, i);
+        results[i] = identifySegment(source, 60 + i * interval, 72 + i * interval, `./tmp/${name}/${i}.mp3`);
       }
 
       Promise.all(results).then((results) => {
-        console.log('ALL results', results);
 
         // second try for unidentified
         for (let i = 0; i < segments; i++) {
           if (results[i].status.msg === 'No result') {
-            results[i] = identifySegment(source, 60 + i * interval + Math.floor(interval / 2), 72 + i * interval + Math.floor(interval / 2), `./tmp/${name}/${i}.mp3`, i);
+            results[i] = identifySegment(source, 60 + i * interval + Math.floor(interval / 2), 72 + i * interval + Math.floor(interval / 2), `./tmp/${name}/${i}.mp3`);
           }
         }
 
@@ -48,6 +44,7 @@ function getTracklist (input, interval) {
             } else i++;
           }
 
+          console.log('######## Identified tracklist: ########');
           for (let i = 0; i < segments; i++) {
             if (results[i].status.msg === 'Success') {
               console.log(`Track #${i + 1}: ${results[i].metadata.music[0].artists[0].name} - ${results[i].metadata.music[0].title} - ${results[i].metadata.music[0].acrid}`);
@@ -57,14 +54,14 @@ function getTracklist (input, interval) {
           }
 
         }).then(() => {
-          fs.rmdir(`./tmp/${name}`, () => true);
+          fs.rmdir(`./tmp/${name}`, () => true);  // delete temporary directory
         })
 
       })
     })
 }
 
-function identifySegment (source, start, end, output, segmentId) {
+function identifySegment (source, start, end, output) {
   return new Promise((resolve, reject) => {
     source                                                // ffmpeg promise from source file
       .then(function (audio) {
@@ -72,9 +69,11 @@ function identifySegment (source, start, end, output, segmentId) {
         audio.addCommand('-to', `${end}`);                // end time of segment
         audio.save(`${output}`)                           // save segment to file
           .then(() => {
-            return requestMetadata(output, segmentId);    // get metadata from API
+            console.log(`Saved segment to file: ${output}`);
+            return requestMetadata(output);               // get metadata from API
           })
           .then((trackMetadata) => {
+            console.log(`Received identification response for ${output}`);
             fs.unlink(`${output}`, () => true);           // delete segment file
             resolve(trackMetadata);                       // resolve promise with metadata
           });
