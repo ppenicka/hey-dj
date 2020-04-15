@@ -56,16 +56,16 @@ function identify (data, options, cb) {
   }, cb);
 }
 
-function identifySegment (file, segmentId, results) {
+function identifySegment (file, segmentId) {
+  return new Promise((resolve, reject) => {
+    var bitmap = fs.readFileSync(`${file}`);
+    identify(Buffer.from(bitmap), defaultOptions, function (err, httpResponse, body) {
+      if (err) console.log(err);
+      console.log('Identified segment ', segmentId);
+      console.log(body);
 
-  var bitmap = fs.readFileSync(`${file}`);
-
-  identify(Buffer.from(bitmap), defaultOptions, function (err, httpResponse, body) {
-    if (err) console.log(err);
-    // console.log(body);
-    console.log('Identified segment ', segmentId);
-
-    results[segmentId] = JSON.parse(body);
+      resolve(JSON.parse(body));
+  })
   });
 }
 
