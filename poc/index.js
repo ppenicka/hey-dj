@@ -1,7 +1,7 @@
 const ffmpeg = require('ffmpeg');
 const fs = require('fs');
 const path = require('path');
-const identifySegment = require('./acrclient');
+const requestMetadata = require('./acrclient');
 
 function getTracklist (input, interval) {
   let length = 0;
@@ -12,51 +12,62 @@ function getTracklist (input, interval) {
   fs.mkdir(`./tmp/${name}`, () => true);
   const source = new ffmpeg(`${input}`);
 
-  source.then((audio) => {
-    length = audio.metadata.duration['seconds'];
-    segments = Math.floor((length - 60) / interval);
+  source
+    .then((audio) => {
+      length = audio.metadata.duration['seconds'];
+      segments = Math.floor((length - 60) / interval);
 
-    console.log('Length of the set is:', length);
-    console.log(`Number of ${interval}-second segments:`, segments);
-
-    for (let i = 0; i < segments; i++) {
-      results[i] = cutSegment(results, source, 60 + i * interval, 72 + i * interval, `./tmp/${name}/${i}.mp3`, i);
-    }
-
-
-    Promise.all(results).then((results) => {
-      console.log('ALL results', results);
+      console.log('Length of the set is:', length);
+      console.log(`Number of ${interval}-second segments:`, segments);
 
       for (let i = 0; i < segments; i++) {
-        if (results[i].metadata) {
-          console.log(`Track #${i + 1}: ${results[i].metadata.music[0].artists[0].name} - ${results[i].metadata.music[0].title}`);
-        } else {
-          console.log(`Track #${i + 1}: unidentified`);
-        }
+        results[i] = identifySegment(source, 60 + i * interval, 72 + i * interval, `./tmp/${name}/${i}.mp3`, i);
       }
+
+      Promise.all(results).then((results) => {
+        console.log('ALL results', results);
+
+        // second try for unidentified
+        for (let i = 0; i < segments; i++) {
+          if (results[i].status.msg === 'No result') {
+            results[i] = identifySegment(source, 60 + i * interval + Math.floor(interval / 2), 72 + i * interval + Math.floor(interval / 2), `./tmp/${name}/${i}.mp3`, i);
+          }
+        }
+
+        Promise.all(results).then((results) => {
+          for (let i = 0; i < segments; i++) {
+            if (results[i].status.msg === 'Success') {
+              console.log(`Track #${i + 1}: ${results[i].metadata.music[0].artists[0].name} - ${results[i].metadata.music[0].title}`);
+            } else {
+              console.log(`Track #${i + 1}: unidentified`);
+            }
+          }
+
+        }).then(() => {
+          fs.rmdir(`./tmp/${name}`, () => true);
+        })
+
+      })
     })
-
-
-  })
-
 }
 
-function cutSegment (results, source, start, end, output, segmentId) {
+function identifySegment (source, start, end, output, segmentId) {
   return new Promise((resolve, reject) => {
-    source
+    source                                                // ffmpeg promise from source file
       .then(function (audio) {
-        audio.addCommand('-ss', `${start}`);
-        audio.addCommand('-to', `${end}`);
-        audio.save(`${output}`)
+        audio.addCommand('-ss', `${start}`);              // start time of segment
+        audio.addCommand('-to', `${end}`);                // end time of segment
+        audio.save(`${output}`)                           // save segment to file
           .then(() => {
-            return identifySegment(output, segmentId);
+            return requestMetadata(output, segmentId);    // get metadata from API
           })
-          .then((pr) => {
-            resolve(pr);
+          .then((trackMetadata) => {
+            fs.unlink(`${output}`, () => true);           // delete segment file
+            resolve(trackMetadata);                       // resolve promise with metadata
           });
       })
   })
 }
 
 
-getTracklist('./set.mp3', 240);
+getTracklist('./set.mp3', 440);
