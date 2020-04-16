@@ -3,10 +3,10 @@ import './TrackList.css';
 import '../TrackTile/TrackTile';
 import TrackTile from '../TrackTile/TrackTile';
 
-export default () => (
+export default (props) => (
   <div>
-    track list test
-    <TrackTile></TrackTile>
-    <TrackTile></TrackTile>
+    {props.tracklist.map(track => <TrackTile track={track}></TrackTile>)
+    }
+
   </div>
 );

@@ -1,8 +1,8 @@
 import React from 'react';
 import './InputForm.css';
 
-export default () => (
+export default (props) => (
   <div>
-    input form test
+    <button onClick={props.click}>What's those songs?</button>
   </div>
 );
