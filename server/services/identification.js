@@ -3,7 +3,11 @@ const fs = require('fs');
 const path = require('path');
 const requestMetadata = require('./AcrCloudClient');
 
-function getTracklist (input, interval) {
+
+
+function getTracklist (req, res) {
+  let input = './set.mp3';
+  let interval = 240;
   let length = 0;
   let segments = 0;
   const results = [];
@@ -47,12 +51,14 @@ function getTracklist (input, interval) {
           console.log('######## Identified tracklist: ########');
           for (let i = 0; i < segments; i++) {
             if (results[i].status.msg === 'Success') {
-              console.log(`Track #${i + 1}: ${results[i].metadata.music[0].artists[0].name} - ${results[i].metadata.music[0].title} - ${results[i].metadata.music[0].acrid}`);
+              console.log(`Track #${i + 1}: ${results[i].metadata.music[0].artists[0].name} - ${results[i].metadata.music[0].title}`);
             } else {
               console.log(`Track #${i + 1}: unidentified`);
             }
           }
 
+          // send tracklist back to client
+          res.status(200).send(results);
         }).then(() => {
           fs.rmdir(`./tmp/${name}`, () => true);  // delete temporary directory
         })
@@ -75,11 +81,11 @@ function identifySegment (source, start, end, output) {
           .then((trackMetadata) => {
             console.log(`Received identification response for ${output}`);
             fs.unlink(`${output}`, () => true);           // delete segment file
+            console.log(trackMetadata);
             resolve(trackMetadata);                       // resolve promise with metadata
           });
       })
   })
 }
 
-
-module.exports = getTracklist;
+module.exports = {getTracklist};
