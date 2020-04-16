@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# AcrCloud API credentials
+client/src/Services/config.js
