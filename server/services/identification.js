@@ -6,7 +6,7 @@ const requestMetadata = require('./AcrCloudClient');
 
 
 function getTracklist (req, res) {
-  let input = './set.mp3';
+  let input = './set2.mp3';
   let interval = 240;
   let length = 0;
   let segments = 0;
@@ -39,7 +39,7 @@ function getTracklist (req, res) {
           // merge duplicate results
           let i = 0;
           while (i < segments - 1) {
-            if ((results[i].status.msg === 'No result') && (results[i+1].status.msg === 'No result') ||
+            if ((results[i].status.msg !== 'Success') && (results[i+1].status.msg !== 'Success') ||
                 ((results[i].status.msg === 'Success') && (results[i+1].status.msg === 'Success') &&
                 (results[i].metadata.music[0].title === results[i + 1].metadata.music[0].title) &&
                 (results[i].metadata.music[0].duration === results[i + 1].metadata.music[0].duration))) {
