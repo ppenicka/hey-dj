@@ -1,11 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import './Components/InputForm/InputForm';
+import InputForm from './Components/InputForm/InputForm';
+import TrackList from './Components/TrackList/TrackList';
 
 function App() {
   return (
     <div className="App">
-      test
+      <InputForm></InputForm>
+      <TrackList></TrackList>
     </div>
   );
 }

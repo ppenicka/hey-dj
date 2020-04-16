@@ -1,0 +1,10 @@
+.App {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  background-image: url('./Assets/vinyl_shop.jpg');
+  background-size: cover;
+  background-position: left;
+}
