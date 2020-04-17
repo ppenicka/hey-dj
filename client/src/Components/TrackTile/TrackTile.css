@@ -1,6 +1,19 @@
 .TrackTile {
-  background-color: rgba(255, 255, 1, 0.3);
+  background-color: rgba(150, 136, 114, 0.568);
   padding: 5px;
   margin: 5px;
   border-radius: 3px;
+}
+
+.Logo {
+  height: 24px;
+  float: right;
+  margin-left: 5px;
+}
+
+.LogoHidden {
+  height: 24px;
+  float: right;
+  margin-left: 5px;
+  visibility: hidden;
 }

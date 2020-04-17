@@ -5,16 +5,18 @@ import InputForm from './Components/InputForm/InputForm';
 import TrackList from './Components/TrackList/TrackList';
 import { getTracklist } from './Services/ApiClient';
 
+import { FakeResponse } from './fake-response';
+
 
 function App() {
-  const [tracklist, setTracklist] = useState(['no data yet']);
+  const [tracklist, setTracklist] = useState([]);
 
   function click () {
-    getTracklist().then((data) => {
-      console.log(data);
-
-      setTracklist(data);
-    })
+    setTracklist(FakeResponse);
+    // getTracklist().then((data) => {
+    //   console.log(data);
+      // setTracklist(data);
+    // })
   }
 
   return (

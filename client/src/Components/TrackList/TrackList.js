@@ -4,9 +4,8 @@ import '../TrackTile/TrackTile';
 import TrackTile from '../TrackTile/TrackTile';
 
 export default (props) => (
-  <div>
-    {props.tracklist.map(track => <TrackTile track={track}></TrackTile>)
-    }
+  <ul>
+    {props.tracklist.map(track => <TrackTile track={track}></TrackTile>)}
 
-  </div>
+  </ul>
 );
