@@ -7,7 +7,6 @@
   background-image: url('./Assets/vinyl_shop.jpg');
   background-size: cover;
   background-position: left;
-  color: var(--color1);
 }
 
 :root {
