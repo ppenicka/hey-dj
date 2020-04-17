@@ -1,0 +1,18 @@
+.DropZone {
+  background-color: rgba(var(--color5), 0.85);
+}
+
+.InputForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.RequestButton {
+  background-color: rgba(var(--color5), 0.85);
+  border: 2px solid;
+  border-color: var(--color1);
+  border-radius: 3px;
+  padding: 10px;
+  font-weight: 800;
+}

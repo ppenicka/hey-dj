@@ -2,7 +2,7 @@ import React from 'react';
 import './TrackTile.css';
 
 export default (props) => (
-  <div className="TrackTile">
+  <div className="Tile">
     <div className="ArtistAndTitle">
       {
         (props.track.status) ? (

@@ -9,6 +9,17 @@
   background-position: left;
 }
 
+.Tile {
+  background-color: rgba(var(--color5), 0.85);
+  border-color: var(--color1);
+  border: 2px solid;
+  padding: 8px;
+  margin: 5px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: space-between;
+}
+
 :root {
   --color1: #362F2F;
   --color2: #987B54;
