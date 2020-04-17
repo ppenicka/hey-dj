@@ -37,7 +37,7 @@ function App() {
     <div className="App">
     {
       (initial) ? (<InputForm click={click}></InputForm>) :
-      (spinning) ? (<img src="https://media.giphy.com/media/62ZhOvaZAZZm0/source.gif"/>) :
+      (spinning) ? (<img className="Spinner" src={`${process.env.PUBLIC_URL}/record_store.gif`}/>) :
       (<TrackList tracklist={tracklist} back={back}></TrackList>)
     }
     </div>
