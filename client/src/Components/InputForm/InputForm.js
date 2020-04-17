@@ -30,7 +30,7 @@ export default (props) => {
         <p>{dropZoneText}</p>
       </div>
       </div>
-      <button className="RequestButton" onClick={props.click}>Hey DJ, what's those songs?</button>
+      <button className="Button" onClick={props.click}>Hey DJ, what's those songs?</button>
       </div>
   )
 }

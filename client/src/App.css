@@ -21,6 +21,16 @@
   justify-content: space-between;
 }
 
+.Button {
+  background-color: rgba(var(--color5), 0.85);
+  margin: 5px;
+  border: 2px solid;
+  border-color: var(--color1);
+  border-radius: 3px;
+  padding: 10px;
+  font-weight: 800;
+}
+
 :root {
   --color1: #362F2F;
   --color2: #987B54;

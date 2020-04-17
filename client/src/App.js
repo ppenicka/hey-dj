@@ -27,12 +27,18 @@ function App() {
     // })
   }
 
+  function back() {
+    setInitial(true);
+    setSpinning(false);
+    setTracklist([]);
+  }
+
   return (
     <div className="App">
     {
       (initial) ? (<InputForm click={click}></InputForm>) :
       (spinning) ? (<img src="https://media.giphy.com/media/62ZhOvaZAZZm0/source.gif"/>) :
-      (<TrackList tracklist={tracklist}></TrackList>)
+      (<TrackList tracklist={tracklist} back={back}></TrackList>)
     }
     </div>
   );
