@@ -17,12 +17,12 @@
   height: 24px;
   margin-left: 3px;
   margin-right: 3px;
-  line-height: 100%;
   display: block;
 }
 
 .LogoHidden {
   height: 24px;
-  margin-left: 5px;
-  visibility: hidden;
+  margin-left: 3px;
+  margin-right: 3px;
+  opacity: 0.25;
 }

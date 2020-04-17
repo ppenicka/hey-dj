@@ -8,7 +8,7 @@ export default (props) => (
         (props.track.status) ? (
           (props.track.status.msg === 'Success') ?
             (props.track.metadata.music[0].artists[0].name + ' - ' + props.track.metadata.music[0].title) :
-            'unidentified') :
+            '--- unidentified ---') :
           'no data yet'
       }
     </div>

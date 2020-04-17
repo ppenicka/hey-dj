@@ -10,9 +10,17 @@ import { FakeResponse } from './fake-response';
 
 function App() {
   const [tracklist, setTracklist] = useState([]);
+  const [ initial, setInitial ] = useState(true);
+  const [ spinning, setSpinning ] = useState(false);
 
   function click () {
-    setTracklist(FakeResponse);
+
+    setInitial(false);
+    setSpinning(true);
+    setTimeout(() => {
+      setSpinning(false);
+      setTracklist(FakeResponse);
+    }, 5000);
     // getTracklist().then((data) => {
     //   console.log(data);
       // setTracklist(data);
@@ -21,8 +29,11 @@ function App() {
 
   return (
     <div className="App">
-      <InputForm click={click}></InputForm>
-      <TrackList tracklist={tracklist}></TrackList>
+    {
+      (initial) ? (<InputForm click={click}></InputForm>) :
+      (spinning) ? (<img src="https://media.giphy.com/media/62ZhOvaZAZZm0/source.gif"/>) :
+      (<TrackList tracklist={tracklist}></TrackList>)
+    }
     </div>
   );
 }
