@@ -1,19 +1,39 @@
 .TrackTile {
-  background-color: rgba(150, 136, 114, 0.568);
-  padding: 5px;
+  background-color: rgba(var(--color5), 0.85);
+  border-color: var(--color1);
+  border: 2px solid;
+  padding: 8px;
   margin: 5px;
   border-radius: 3px;
+  display: flex;
+  justify-content: space-between;
 }
+
+.ArtistAndTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  font-weight: 500;
+}
+
+.ServicesLinks {
+  margin-left: 20px;
+  display: flex;
+  vertical-align: center;
+}
+
 
 .Logo {
   height: 24px;
-  float: right;
-  margin-left: 5px;
+  margin-left: 3px;
+  margin-right: 3px;
+  line-height: 100%;
+  display: block;
 }
 
 .LogoHidden {
   height: 24px;
-  float: right;
   margin-left: 5px;
   visibility: hidden;
 }

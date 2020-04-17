@@ -7,4 +7,14 @@
   background-image: url('./Assets/vinyl_shop.jpg');
   background-size: cover;
   background-position: left;
+  color: var(--color1);
+}
+
+:root {
+  --color1: #362F2F;
+  --color2: #987B54;
+  --color3: #B99864;
+  --color4: #D5B88E;
+  --color5: 218,207,188;
+
 }
