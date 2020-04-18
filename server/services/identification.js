@@ -1,6 +1,6 @@
 const ffmpeg = require('ffmpeg');
 const fs = require('fs');
-const requestMetadata = require('./AcrCloudClient');
+const requestMetadata = require('./acrcloudclient');
 const shortid = require('shortid');
 
 function getTracklist (req, res) {
