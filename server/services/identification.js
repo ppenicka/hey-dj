@@ -5,22 +5,19 @@ const requestMetadata = require('./AcrCloudClient');
 
 
 function getTracklist (req, res) {
-  req.files.file.mv(`./tmp/${req.files.file.name}`).then(() => {
-
-
-
-
-  let input = `./tmp/${req.files.file.name}`;
-  console.log('input', input);
-
   let interval = 240;
   let length = 0;
   let segments = 0;
   const results = [];
 
-  const dirname = './tmp/' + path.basename(input);
+  req.files.file.mv(`./tmp/${req.files.file.name}`).then(() => {
+  let input = `./tmp/${req.files.file.name}`;
+  console.log('input', input);
+  const basename = path.basename(input);
+  const dirname = './tmp/' + basename.substring(0, basename.length - 4);
   console.log('dirname', dirname)
-  fs.mkdir(dirname, () => true);
+  fs.mkdirSync(dirname);
+
   const source = new ffmpeg(`${input}`);
 
   source
@@ -30,7 +27,7 @@ function getTracklist (req, res) {
 
       // identify segments
       for (let i = 0; i < segments; i++) {
-        results[i] = identifySegment(source, 60 + i * interval, 72 + i * interval, `./tmp/${name}/${i}.mp3`);
+        results[i] = identifySegment(source, 60 + i * interval, 72 + i * interval, `${dirname}/${i}.mp3`);
       }
 
       Promise.all(results).then((results) => {
@@ -38,7 +35,7 @@ function getTracklist (req, res) {
         // second try for unidentified
         for (let i = 0; i < segments; i++) {
           if (results[i].status.msg === 'No result') {
-            results[i] = identifySegment(source, 60 + i * interval + Math.floor(interval / 2), 72 + i * interval + Math.floor(interval / 2), `./tmp/${name}/${i}.mp3`);
+            results[i] = identifySegment(source, 60 + i * interval + Math.floor(interval / 2), 72 + i * interval + Math.floor(interval / 2), `${dirname}/${i}.mp3`);
           }
         }
 
