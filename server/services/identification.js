@@ -6,6 +6,9 @@ const requestMetadata = require('./AcrCloudClient');
 
 
 function getTracklist (req, res) {
+  console.log(req.body);
+
+
   let input = './set2.mp3';
   let interval = 240;
   let length = 0;

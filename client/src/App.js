@@ -3,7 +3,7 @@ import './App.css';
 import './Components/InputForm/InputForm';
 import InputForm from './Components/InputForm/InputForm';
 import TrackList from './Components/TrackList/TrackList';
-import { getTracklist } from './Services/ApiClient';
+import { getTracklist, getTracklistFromFile } from './Services/ApiClient';
 
 import { FakeResponse } from './fake-response';
 
@@ -18,7 +18,10 @@ function App() {
     setInitial(false);
     setSpinning(true);
 
-    getTracklist().then((data) => {
+    const formData = new FormData()
+    formData.append('file', selectedFile)
+
+    getTracklistFromFile(formData).then((data) => {
       console.log(data);
       setTracklist(data);
       setSpinning(false);
