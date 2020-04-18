@@ -64,7 +64,8 @@ function getTracklist (req, res) {
           // send tracklist back to client
           res.status(200).send(results);
         }).then(() => {
-          fs.rmdir(`./tmp/${name}`, () => true);  // delete temporary directory
+          fs.rmdirSync(dirname);  // delete temporary directory
+          fs.unlinkSync(input);   // delete received file
         })
 
       })
