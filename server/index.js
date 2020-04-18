@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors')();
-
+const fileUpload = require('express-fileupload');
 const app = express();
 const PORT = process.env.PORT || 3001;
 const router = require('./router');
@@ -8,6 +8,7 @@ const router = require('./router');
 app
   .use(cors)
   .use(express.json())
+  .use(fileUpload())
   .use(router);
 
 app.listen(PORT, (err) => {

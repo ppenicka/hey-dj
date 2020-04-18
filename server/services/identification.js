@@ -4,19 +4,23 @@ const path = require('path');
 const requestMetadata = require('./AcrCloudClient');
 
 
-
 function getTracklist (req, res) {
-  console.log(req.body);
+  req.files.file.mv(`./tmp/${req.files.file.name}`).then(() => {
 
 
-  let input = './set2.mp3';
+
+
+  let input = `./tmp/${req.files.file.name}`;
+  console.log('input', input);
+
   let interval = 240;
   let length = 0;
   let segments = 0;
   const results = [];
 
-  const name = path.basename(input);
-  fs.mkdir(`./tmp/${name}`, () => true);
+  const dirname = './tmp/' + path.basename(input);
+  console.log('dirname', dirname)
+  fs.mkdir(dirname, () => true);
   const source = new ffmpeg(`${input}`);
 
   source
@@ -68,6 +72,10 @@ function getTracklist (req, res) {
 
       })
     })
+
+
+
+  })
 }
 
 function identifySegment (source, start, end, output) {
