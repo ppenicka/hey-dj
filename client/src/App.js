@@ -12,19 +12,17 @@ function App() {
   const [tracklist, setTracklist] = useState([]);
   const [ initial, setInitial ] = useState(true);
   const [ spinning, setSpinning ] = useState(false);
+  const [ selectedFile, setSelectedFile ] = useState(null);
 
-  function click () {
-
+  function onClick () {
     setInitial(false);
     setSpinning(true);
-    setTimeout(() => {
+
+    getTracklist().then((data) => {
+      console.log(data);
+      setTracklist(data);
       setSpinning(false);
-      setTracklist(FakeResponse);
-    }, 5000);
-    // getTracklist().then((data) => {
-    //   console.log(data);
-      // setTracklist(data);
-    // })
+    })
   }
 
   function back() {
@@ -36,7 +34,7 @@ function App() {
   return (
     <div className="App">
     {
-      (initial) ? (<InputForm click={click}></InputForm>) :
+      (initial) ? (<InputForm onClick={onClick} setSelectedFile={setSelectedFile}></InputForm>) :
       (spinning) ? (<img className="Spinner" src={`${process.env.PUBLIC_URL}/record_store.gif`}/>) :
       (<TrackList tracklist={tracklist} back={back}></TrackList>)
     }

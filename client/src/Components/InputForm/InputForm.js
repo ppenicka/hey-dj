@@ -6,19 +6,9 @@ export default (props) => {
   const [dropZoneText, setDropZoneText] = useState('Drag & drop a recorded set, or click to select from filesystem');
 
   const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.forEach((file) => {
-      const reader = new FileReader()
-
-      reader.onabort = () => console.log('file reading was aborted')
-      reader.onerror = () => console.log('file reading has failed')
-      reader.onload = () => {
-        // Do whatever you want with the file contents
-        const binaryStr = reader.result
-        setDropZoneText('Loaded');
-      }
-      reader.readAsArrayBuffer(file)
-    })
-
+    const file = acceptedFiles[0];
+    props.setSelectedFile(file);
+    setDropZoneText(file.name);
   }, [])
   const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
@@ -30,7 +20,7 @@ export default (props) => {
         <p>{dropZoneText}</p>
       </div>
       </div>
-      <button className="Button" onClick={props.click}>Hey DJ, what's those songs?</button>
+      <button className="Button" onClick={props.onClick}>Hey DJ, what's those songs?</button>
       </div>
   )
 }
