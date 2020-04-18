@@ -1,8 +1,7 @@
 const ffmpeg = require('ffmpeg');
 const fs = require('fs');
-const path = require('path');
 const requestMetadata = require('./AcrCloudClient');
-
+const shortid = require('shortid');
 
 function getTracklist (req, res) {
   const results = [];
@@ -10,8 +9,10 @@ function getTracklist (req, res) {
   let length = 0;
   let segments = 0;
 
-  const basename = req.files.file.name;
-  const input = './tmp/' + basename;
+  const name = req.files.file.name;
+  const extension = name.substring(name.length - 3, name.length);
+  const basename = shortid.generate();
+  const input = './tmp/' + basename + '.' + extension;
   const dirname = input.substring(0, input.length - 4);
 
   req.files.file.mv(input)
@@ -24,14 +25,14 @@ function getTracklist (req, res) {
 
         // identify segments
         for (let i = 0; i < segments; i++) {
-          results[i] = identifySegment(source, 60 + i * interval, 72 + i * interval, `${dirname}/${i}.mp3`);
+          results[i] = identifySegment(source, 60 + i * interval, 72 + i * interval, `${dirname}/${i}.${extension}`);
         }
 
         // second try for unidentified
         Promise.all(results).then((results) => {
           for (let i = 0; i < segments; i++) {
             if (results[i].status.code === 1001) {
-              results[i] = identifySegment(source, 60 + i * interval + Math.floor(interval / 2), 72 + i * interval + Math.floor(interval / 2), `${dirname}/${i}.mp3`);
+              results[i] = identifySegment(source, 60 + i * interval + Math.floor(interval / 2), 72 + i * interval + Math.floor(interval / 2), `${dirname}/${i}.${extension}`);
             }
           }
 
