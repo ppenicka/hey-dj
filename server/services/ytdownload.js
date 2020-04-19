@@ -15,7 +15,7 @@ function downloadYouTube (req, res) {
     "ffmpegPath": "/usr/bin/ffmpeg",
     "outputPath": "./tmp",
     "youtubeVideoQuality": "lowest",
-    "queueParallelism": 2,
+    "queueParallelism": 4,
     "progressTimeout": 2000
   });
 
