@@ -10,17 +10,25 @@ export default (props) => {
     props.setSelectedFile(file);
     setDropZoneText(file.name);
   }, [])
+
   const { getRootProps, getInputProps } = useDropzone({ onDrop })
+
+  function handleUrlChange (event) {
+    props.setUrl(event.target.value);
+  }
 
   return (
     <div className="InputForm">
-    <div {...getRootProps()}>
-      <input {...getInputProps()} />
-      <div className="Tile">
-        <p>{dropZoneText}</p>
+      <div>
+        <input type="url" onChange={handleUrlChange}></input>
       </div>
+      <div {...getRootProps()}>
+        <input {...getInputProps()} />
+        <div className="Tile">
+          <p>{dropZoneText}</p>
+        </div>
       </div>
       <button className="Button" onClick={props.onClick}>Hey DJ, what's those songs?</button>
-      </div>
+    </div>
   )
 }

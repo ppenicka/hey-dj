@@ -6,6 +6,6 @@ router
   .post('/tracklist', identify.identifyFromFile);
 
 router
-  .get('/yt', yt.downloadYouTube)
+  .post('/yt', yt.downloadYouTube)
 
 module.exports = router;
