@@ -3,10 +3,8 @@ import './App.css';
 import './Components/InputForm/InputForm';
 import InputForm from './Components/InputForm/InputForm';
 import TrackList from './Components/TrackList/TrackList';
+import Spinner from './Components/Spinner/Spinner';
 import { getTracklist, getTracklistFromFile } from './Services/ApiClient';
-
-import { FakeResponse } from './fake-response';
-
 
 function App() {
   const [tracklist, setTracklist] = useState([]);
@@ -38,7 +36,7 @@ function App() {
     <div className="App">
     {
       (initial) ? (<InputForm onClick={onClick} setSelectedFile={setSelectedFile}></InputForm>) :
-      (spinning) ? (<img className="Spinner" src={`${process.env.PUBLIC_URL}/record_store.gif`}/>) :
+      (spinning) ? (<Spinner></Spinner>) :
       (<TrackList tracklist={tracklist} back={back}></TrackList>)
     }
     </div>
