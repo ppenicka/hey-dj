@@ -17,12 +17,22 @@
   },
   "homepage": "https://github.com/ppenicka/hey-dj#readme",
   "devDependencies": {
+    "babel-eslint": "10.0.1",
+    "del": "5.0.0",
     "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^2.5.1",
-    "gulp": "^4.0.2"
+    "eslint-config-react-app": "4.0.1",
+    "eslint-plugin-flowtype": "^3.11.1",
+    "eslint-plugin-import": "2.18.0",
+    "eslint-plugin-json": "^1.4.0",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.14.2",
+    "eslint-plugin-react-hooks": "1.6.1",
+    "gulp": "^4.0.2",
+    "gulp-eslint": "5.0.0",
+    "gulp-load-plugins": "2.0.0",
+    "gulp-replace": "1.0.0"
+  },
+  "dependencies": {
+    "react": "^16.8.6"
   }
 }
