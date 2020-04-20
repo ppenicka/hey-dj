@@ -11,7 +11,9 @@ function identifyFromFile (req, res) {
 
   req.files.file.mv(input)
     .then(() => {
-      getTracklist(input, dirname, extension, interval, res);
+      getTracklist(input, dirname, extension, interval).then((results) => {
+        res.status(200).send(results);
+      });
     });
 }
 

@@ -1,5 +1,6 @@
 const YoutubeMp3Downloader = require("youtube-mp3-downloader");
 const { getTracklist } = require('./gettracklist');
+const tlDb = require('../models/tracklist');
 
 function downloadYouTube (req, res) {
   console.log(req.body);
@@ -22,7 +23,9 @@ function downloadYouTube (req, res) {
   YD.download(id, id + '.mp3');
 
   YD.on("finished", function (err, data) {
-    getTracklist(input, dirname, extension, interval, res);
+    getTracklist(input, dirname, extension, interval).then((results) => {
+      res.status(200).send(results);
+    });
   });
 
   YD.on("error", function (error) {
