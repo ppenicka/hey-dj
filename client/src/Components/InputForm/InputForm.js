@@ -3,7 +3,7 @@ import './InputForm.css';
 import { useDropzone } from 'react-dropzone';
 
 export default (props) => {
-  const [dropZoneText, setDropZoneText] = useState('Drag & drop a recorded set, or click to select from filesystem');
+  const [dropZoneText, setDropZoneText] = useState('... drag & drop a recorded set, or click to select from filesystem ...');
 
   const onDrop = useCallback((acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -20,13 +20,13 @@ export default (props) => {
   return (
     <div className="InputForm">
       <div>
-        <input type="url" onChange={handleUrlChange}></input>
-      </div>
-      <div {...getRootProps()}>
-        <input {...getInputProps()} />
-        <div className="Tile">
-          <p>{dropZoneText}</p>
+        <div {...getRootProps()}>
+          <input {...getInputProps()} />
+          <div className="DropZone">
+            <p>{dropZoneText}</p>
+          </div>
         </div>
+        <input className="UrlInput" type="url" onChange={handleUrlChange} placeholder=" ... or insert a YouTube URL here ..."/>
       </div>
       <button className="Button" onClick={props.onClick}>Hey DJ, what's those songs?</button>
     </div>

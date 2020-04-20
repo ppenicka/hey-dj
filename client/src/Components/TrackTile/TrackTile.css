@@ -4,10 +4,11 @@
   justify-content: center;
   align-content: center;
   font-weight: 500;
+  margin-left: 3px;
 }
 
 .ServicesLinks {
-  margin-left: 20px;
+  margin-left: 60px;
   display: flex;
   vertical-align: center;
 }

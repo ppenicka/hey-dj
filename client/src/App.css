@@ -11,39 +11,40 @@
 }
 
 .Tile {
-  background-color: rgba(var(--color5), 0.85);
+  background-color: var(--color5);
   border-color: var(--color1);
   border: 2px solid;
   padding: 8px;
   margin: 5px;
-  border-radius: 3px;
+  border-radius: 4px;
   display: flex;
   justify-content: space-between;
 }
 
 .Button {
-  background-color: rgba(var(--color5), 0.85);
+  background-color: var(--color5);
   margin: 5px;
   border: 2px solid;
   border-color: var(--color1);
-  border-radius: 3px;
+  border-radius: 4px;
   padding: 10px;
   font-weight: 800;
+  color: var(--color1);
 }
 
 :root {
-  --color1: #362F2F;
-  --color2: #987B54;
-  --color3: #B99864;
+  --color1: black;
+  --color2: #362F2F;
+  --color3: #987B54;
   --color4: #D5B88E;
-  --color5: 218,207,188;
+  --color5: #DACFBC;
 
 }
 
 .Spinner {
   outline: 20px solid rgba(0,0,0,.5);
   outline-offset: -20px;
-  -webkit-box-shadow: 0px 0px 38px 18px rgba(0,0,0,1);
--moz-box-shadow: 0px 0px 38px 18px rgba(0,0,0,1);
-box-shadow: 0px 0px 38px 18px rgba(0,0,0,1);
+  -webkit-box-shadow: 0px 0px 38px 18px var(--color1);
+-moz-box-shadow: 0px 0px 38px 18px var(--color1);
+box-shadow: 0px 0px 38px 18px var(--color1);
 }
