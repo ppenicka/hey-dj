@@ -17,7 +17,10 @@ function identifyFromFile (req, res) {
     } else {
       req.files.file.mv(input).then(() => {
         getTracklist(input, dirname, extension, interval).then((results) => {
-          fileResult.create({ fileName: name, fileSize: size, results: JSON.stringify(results) });
+          fileResult.create({
+            fileName: name,
+            fileSize: size,
+            results: JSON.stringify(results) });
           res.status(200).send(results);
         });
       });

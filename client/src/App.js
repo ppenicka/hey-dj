@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import './Components/InputForm/InputForm';
 import InputForm from './Components/InputForm/InputForm';
@@ -6,12 +6,12 @@ import TrackList from './Components/TrackList/TrackList';
 import Spinner from './Components/Spinner/Spinner';
 import { getTracklistFromFile, getTracklistFromYouTube } from './Services/ApiClient';
 
-function App() {
-  const [ tracklist, setTracklist ] = useState([]);
-  const [ initial, setInitial ] = useState(true);
-  const [ spinning, setSpinning ] = useState(false);
-  const [ selectedFile, setSelectedFile ] = useState(null);
-  const [ url, setUrl ] = useState('');
+function App () {
+  const [tracklist, setTracklist] = useState([]);
+  const [initial, setInitial] = useState(true);
+  const [spinning, setSpinning] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [url, setUrl] = useState('');
 
   function onClick () {
     setInitial(false);
@@ -32,10 +32,9 @@ function App() {
         setSpinning(false);
       });
     }
-
   }
 
-  function back() {
+  function back () {
     setInitial(true);
     setSpinning(false);
     setTracklist([]);
@@ -43,11 +42,11 @@ function App() {
 
   return (
     <div className="App">
-    {
-      (initial) ? (<InputForm onClick={onClick} setSelectedFile={setSelectedFile} setUrl={setUrl}></InputForm>) :
-      (spinning) ? (<Spinner></Spinner>) :
-      (<TrackList tracklist={tracklist} back={back}></TrackList>)
-    }
+      {
+        (initial) ? (<InputForm onClick={onClick} setSelectedFile={setSelectedFile} setUrl={setUrl}></InputForm>) :
+          (spinning) ? (<Spinner></Spinner>) :
+            (<TrackList tracklist={tracklist} back={back}></TrackList>)
+      }
     </div>
   );
 }

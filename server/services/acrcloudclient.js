@@ -49,9 +49,9 @@ function identify (data, options, cb) {
     signature: signature,
     sample_bytes: data.length,
     timestamp: timestamp,
-  }
+  };
   request.post({
-    url: "http://" + options.host + options.endpoint,
+    url: 'http://' + options.host + options.endpoint,
     method: 'POST',
     formData: formData
   }, cb);
@@ -61,9 +61,9 @@ function identifySegment (file) {
   return new Promise((resolve, reject) => {
     var bitmap = fs.readFileSync(`${file}`);
     identify(Buffer.from(bitmap), defaultOptions, function (err, httpResponse, body) {
-      if (err) console.log(err);
+      if (err) reject(err);
       resolve(JSON.parse(body));
-  })
+    });
   });
 }
 

@@ -37,12 +37,12 @@ function getTracklist (input, dirname, extension, interval) {
             } else i++;
           }
 
-          console.log('######## Identified tracklist: ########');
+          console.log('######## Identified tracklist: ########'); // eslint-disable-line no-console
           for (let i = 0; i < segments; i++) {
             if (results[i].status.code === 0) {
-              console.log(`Track #${i + 1}: ${results[i].metadata.music[0].artists[0].name} - ${results[i].metadata.music[0].title}`);
+              console.log(`Track #${i + 1}: ${results[i].metadata.music[0].artists[0].name} - ${results[i].metadata.music[0].title}`);  // eslint-disable-line no-console
             } else {
-              console.log(`Track #${i + 1}: unidentified`);
+              console.log(`Track #${i + 1}: unidentified`); // eslint-disable-line no-console
             }
           }
 
@@ -52,28 +52,28 @@ function getTracklist (input, dirname, extension, interval) {
         }).then(() => {
           fs.rmdirSync(dirname);  // delete temporary directory
           fs.unlinkSync(input);   // delete received file
-        })
-      })
-    })
-  })
+        });
+      });
+    });
+  });
 }
 
 function identifySegment (source, start, end, output) {
   return new Promise((resolve, reject) => {
-    source.then(function (audio) {                      // ffmpeg promise from source file
-      audio.addCommand('-ss', `${start}`);              // start time of segment
-      audio.addCommand('-to', `${end}`);                // end time of segment
+    source.then(function (audio) {                        // ffmpeg promise from source file
+      audio.addCommand('-ss', `${start}`);                // start time of segment
+      audio.addCommand('-to', `${end}`);                  // end time of segment
 
-      audio.save(`${output}`).then(() => {              // save segment to file
-        console.log(`Saved segment to file: ${output}`);
-        return requestMetadata(output);                 // get metadata from API
+      audio.save(`${output}`).then(() => {                // save segment to file
+        console.log(`Saved segment to file: ${output}`);                // eslint-disable-line no-console
+        return requestMetadata(output);                   // get metadata from API
       }).then((trackMetadata) => {
-        console.log(`Received identification response for ${output}`);
-        fs.unlink(`${output}`, () => true);             // delete segment file
-        resolve(trackMetadata);                         // resolve promise with metadata
+        console.log(`Received identification response for ${output}`);  // eslint-disable-line no-console
+        fs.unlink(`${output}`, () => true);               // delete segment file
+        resolve(trackMetadata);                           // resolve promise with metadata
       });
-    })
-  })
+    });
+  });
 }
 
 module.exports = { getTracklist };

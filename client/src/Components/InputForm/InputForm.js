@@ -9,7 +9,7 @@ export default (props) => {
     const file = acceptedFiles[0];
     props.setSelectedFile(file);
     setDropZoneText(file.name);
-  }, [])
+  }, []);
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
@@ -26,9 +26,9 @@ export default (props) => {
             <p>{dropZoneText}</p>
           </div>
         </div>
-        <input className="UrlInput" type="url" onChange={handleUrlChange} placeholder=" ... or insert a YouTube URL here ..."/>
+        <input className="UrlInput" type="url" onChange={handleUrlChange} placeholder=" ... or insert a YouTube URL here ..." />
       </div>
       <button className="Button" onClick={props.onClick}>Hey DJ, what's those songs?</button>
     </div>
-  )
+  );
 }
