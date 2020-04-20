@@ -1,41 +1,47 @@
 const YoutubeMp3Downloader = require("youtube-mp3-downloader");
 const { getTracklist } = require('./gettracklist');
-const tlDb = require('../models/tracklist');
+const tlDb = require('../models/youtuberesults');
 
 function downloadYouTube (req, res) {
-  console.log(req.body);
 
   const url = new URL(req.body.ytUrl);
-  const id = url.searchParams.get("v");
+  const youTubeId = url.searchParams.get("v");
   const interval = 240;
-  const dirname = './tmp/' + id;
+  const dirname = './tmp/' + youTubeId;
   const extension = 'mp3';
   const input = dirname + '.' + extension;
 
-  const YD = new YoutubeMp3Downloader({
-    "ffmpegPath": "/usr/bin/ffmpeg",
-    "outputPath": "./tmp",
-    "youtubeVideoQuality": "lowest",
-    "queueParallelism": 4,
-    "progressTimeout": 2000
-  });
+  tlDb.find({ youTubeId: youTubeId }).then((cached) => {
 
-  YD.download(id, id + '.mp3');
+    if (cached.length > 0) {
+      res.status(200).send(cached[0]['results']);
+    } else {
+      const YD = new YoutubeMp3Downloader({
+        "ffmpegPath": "/usr/bin/ffmpeg",
+        "outputPath": "./tmp",
+        "youtubeVideoQuality": "lowest",
+        "queueParallelism": 4,
+        "progressTimeout": 2000
+      });
 
-  YD.on("finished", function (err, data) {
-    getTracklist(input, dirname, extension, interval).then((results) => {
-      tlDb.create({id: id, tracklist: JSON.stringify(results)});
-      res.status(200).send(results);
-    });
-  });
+      YD.download(youTubeId, youTubeId + '.mp3');
 
-  YD.on("error", function (error) {
-    console.log(error);
-  });
+      YD.on("finished", function (err, data) {
+        getTracklist(input, dirname, extension, interval).then((results) => {
+          tlDb.create({ youTubeId: youTubeId, results: JSON.stringify(results) });
+          res.status(200).send(results);
+        });
+      });
 
-  YD.on("progress", function (progress) {
-    console.log(JSON.stringify(progress));
-  });
+      YD.on("error", function (error) {
+        console.log(error);
+      });
+
+      YD.on("progress", function (progress) {
+        console.log(JSON.stringify(progress));
+      });
+    }
+  })
 }
 
 module.exports = { downloadYouTube };
