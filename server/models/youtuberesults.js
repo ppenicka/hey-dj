@@ -1,11 +1,11 @@
 const mongoose = require('../db');
 const Schema = mongoose.Schema;
 
-const YouTubeResultsSchema = new Schema ({
+const YouTubeResultSchema = new Schema ({
   youTubeId: {type: String, required: true},
   results: {type: String, required: true}
 });
 
-const model = mongoose.model('Tracklists', YouTubeResultsSchema);
+const model = mongoose.model('YouTubeResult', YouTubeResultSchema);
 
 module.exports = model;

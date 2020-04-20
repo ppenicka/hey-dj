@@ -1,6 +1,6 @@
 const YoutubeMp3Downloader = require("youtube-mp3-downloader");
 const { getTracklist } = require('./gettracklist');
-const tlDb = require('../models/youtuberesults');
+const youTubeResult = require('../models/youtuberesults');
 
 function downloadYouTube (req, res) {
 
@@ -11,7 +11,7 @@ function downloadYouTube (req, res) {
   const extension = 'mp3';
   const input = dirname + '.' + extension;
 
-  tlDb.find({ youTubeId: youTubeId }).then((cached) => {
+  youTubeResult.find({ youTubeId: youTubeId }).then((cached) => {
 
     if (cached.length > 0) {
       res.status(200).send(cached[0]['results']);
@@ -28,7 +28,7 @@ function downloadYouTube (req, res) {
 
       YD.on("finished", function (err, data) {
         getTracklist(input, dirname, extension, interval).then((results) => {
-          tlDb.create({ youTubeId: youTubeId, results: JSON.stringify(results) });
+          youTubeResult.create({ youTubeId: youTubeId, results: JSON.stringify(results) });
           res.status(200).send(results);
         });
       });
