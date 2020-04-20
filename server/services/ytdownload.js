@@ -24,6 +24,7 @@ function downloadYouTube (req, res) {
 
   YD.on("finished", function (err, data) {
     getTracklist(input, dirname, extension, interval).then((results) => {
+      tlDb.create({id: id, tracklist: JSON.stringify(results)});
       res.status(200).send(results);
     });
   });
