@@ -1,7 +1,7 @@
 const fs = require('fs');
 const crypto = require('crypto');
 const request = require('request');
-const config = require('./config');
+const config = require('../config');
 
 // Replace "###...###" below with your project's host, access_key and access_secret.
 const defaultOptions = {

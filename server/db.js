@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const config = require('./config');
 
-mongoose.connect('mongodb://localhost:27017/hey-dj', {
+mongoose.connect(config.DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
