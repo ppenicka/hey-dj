@@ -51,7 +51,7 @@ This prodcedure describes how to launch the application in a development or test
 - `HOST`: ACRCloud project host URL
 - `DB_URL`: URL of your MongoDB instance, including database name (e.g. *mongodb:localhost:27017/hey-dj*)
 - `PORT`: port number on which the server should run
-- `SEGMENT_INTERVAL`:
+- `SEGMENT_INTERVAL`: interval between segments extracted from the set, specified in seconds (if unspecified, a default value of *240* is used)
 
 6. Launch MongoDB.
 

@@ -3,7 +3,7 @@ const getTracklist = require('../helpers/get-tracklist');
 const TracklistFromFile = require('../models/tracklist-from-file');
 
 function identifyFromFile (req, res) {
-  const interval = process.env.HEY_DJ_INTERVAL;
+  const interval = process.env.SEGMENT_INTERVAL || 240;
   const name = req.files.file.name;
   const size = req.files.file.size;
   const extension = name.substring(name.length - 3, name.length);

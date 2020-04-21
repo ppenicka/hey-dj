@@ -5,7 +5,7 @@ const TracklistFromYouTube = require('../models/tracklist-from-youtube');
 function downloadYouTube (req, res) {
   const url = new URL(req.body.ytUrl);
   const youTubeId = url.searchParams.get('v');
-  const interval = 240;
+  const interval = process.env.SEGMENT_INTERVAL || 240;
   const dirname = './tmp/' + youTubeId;
   const extension = 'mp3';
   const input = dirname + '.' + extension;
