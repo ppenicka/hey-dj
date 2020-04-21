@@ -37,6 +37,8 @@ function App () {
   function back () {
     setInitial(true);
     setSpinning(false);
+    setSelectedFile(null);
+    setUrl('');
     setTracklist([]);
   }
 
