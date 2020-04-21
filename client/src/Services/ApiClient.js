@@ -1,7 +1,7 @@
 const baseUrl = 'http://localhost:3001';
 
 export const getTracklistFromYouTube = (url) =>
-  fetch(baseUrl + '/yt', {
+  fetch(baseUrl + '/youtube', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -11,7 +11,7 @@ export const getTracklistFromYouTube = (url) =>
     .then(res => res.json())
 
 export const getTracklistFromFile = (data) =>
-  fetch(baseUrl + '/tracklist', {
+  fetch(baseUrl + '/file', {
     method: 'POST',
     body: data
   }).then(res => res.json())

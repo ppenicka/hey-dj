@@ -1,6 +1,6 @@
 const YoutubeMp3Downloader = require('youtube-mp3-downloader');
-const { getTracklist } = require('./gettracklist');
-const youTubeResult = require('../models/youtuberesults');
+const getTracklist = require('../helpers/get-tracklist');
+const TracklistFromYouTube = require('../models/tracklist-from-youtube');
 
 function downloadYouTube (req, res) {
 
@@ -11,10 +11,10 @@ function downloadYouTube (req, res) {
   const extension = 'mp3';
   const input = dirname + '.' + extension;
 
-  youTubeResult.find({ youTubeId: youTubeId }).then((cached) => {
+  TracklistFromYouTube.find({ youTubeId: youTubeId }).then((cached) => {
 
     if (cached.length > 0) {
-      res.status(200).send(cached[0]['results']);
+      res.status(200).send(cached[0]['tracklist']);
     } else {
       const YD = new YoutubeMp3Downloader({
         'ffmpegPath': '/usr/bin/ffmpeg',
@@ -28,9 +28,9 @@ function downloadYouTube (req, res) {
 
       YD.on('finished', function () {
         getTracklist(input, dirname, extension, interval).then((results) => {
-          youTubeResult.create({
+          TracklistFromYouTube.create({
             youTubeId: youTubeId,
-            results: JSON.stringify(results)
+            tracklist: JSON.stringify(results)
           });
           res.status(200).send(results);
         });

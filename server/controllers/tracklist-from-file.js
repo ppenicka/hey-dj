@@ -1,6 +1,6 @@
 const shortid = require('shortid');
-const { getTracklist } = require('./gettracklist');
-const fileResult = require('../models/fileresult');
+const getTracklist = require('../helpers/get-tracklist');
+const TracklistFromFile = require('../models/tracklist-from-file');
 
 function identifyFromFile (req, res) {
   const interval = 240;
@@ -11,16 +11,16 @@ function identifyFromFile (req, res) {
   const input = './tmp/' + id + '.' + extension;
   const dirname = input.substring(0, input.length - 4);
 
-  fileResult.find({ fileName: name, fileSize: size }).then((cached) => {
+  TracklistFromFile.find({ fileName: name, fileSize: size }).then((cached) => {
     if (cached.length > 0) {
-      res.status(200).send(cached[0]['results']);
+      res.status(200).send(cached[0]['tracklist']);
     } else {
       req.files.file.mv(input).then(() => {
         getTracklist(input, dirname, extension, interval).then((results) => {
-          fileResult.create({
+          TracklistFromFile.create({
             fileName: name,
             fileSize: size,
-            results: JSON.stringify(results) });
+            tracklist: JSON.stringify(results) });
           res.status(200).send(results);
         });
       });

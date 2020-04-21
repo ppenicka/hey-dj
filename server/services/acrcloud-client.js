@@ -56,7 +56,7 @@ function identify (data, options, cb) {
   }, cb);
 }
 
-function identifySegment (file) {
+function requestMetadata (file) {
   return new Promise((resolve, reject) => {
     var bitmap = fs.readFileSync(`${file}`);
     identify(Buffer.from(bitmap), defaultOptions, function (err, httpResponse, body) {
@@ -66,4 +66,4 @@ function identifySegment (file) {
   });
 }
 
-module.exports = identifySegment;
+module.exports = requestMetadata;

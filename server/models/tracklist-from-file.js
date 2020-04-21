@@ -1,12 +1,12 @@
 const mongoose = require('../db');
 const Schema = mongoose.Schema;
 
-const FileResultSchema = new Schema ({
+const TracklistFromFileSchema = new Schema ({
   fileName: {type: String, required: true},
   fileSize: {type: Number},
-  results: {type: String, required: true}
+  tracklist: {type: String, required: true}
 });
 
-const model = mongoose.model('FileResult', FileResultSchema);
+const model = mongoose.model('TracklistFromFile', TracklistFromFileSchema);
 
 module.exports = model;
