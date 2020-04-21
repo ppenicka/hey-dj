@@ -22,12 +22,12 @@ Web app that performs tracklist recognition in DJ sets through the ACRCloud musi
 The application is utilizes the following technologies:
 
 - **React** for front-end
+- **Node.js** for back-end runtime
 - **Express** for back-end server
 - **MongoDB** for persistent caching of results
 - **Mongoose** for interaction between server and DB
 - **FFMPEG** for audio file manipulation
 - **ACRCloud API** for recognition of extracted audio segments
-- **youtube-mp3-downloader** for downloading audio tracks from youtube videos
 
 # Installation
 
@@ -51,7 +51,7 @@ This prodcedure describes how to launch the application in a development or test
 - `HOST`: ACRCloud project host URL
 - `DB_URL`: URL of your MongoDB instance, including database name (e.g. *mongodb:localhost:27017/hey-dj*)
 - `PORT`: port number on which the server should run
-- `SEGMENT_INTERVAL`: interval between segments extracted from the set, specified in seconds (if unspecified, a default value of *240* is used)
+- `SEGMENT_INTERVAL`: interval between segments extracted from the set, specified in seconds (if unspecified, a default value of *120* is used)
 
 6. Launch MongoDB.
 
