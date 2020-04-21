@@ -3,7 +3,6 @@ const getTracklist = require('../helpers/get-tracklist');
 const TracklistFromYouTube = require('../models/tracklist-from-youtube');
 
 function downloadYouTube (req, res) {
-
   const url = new URL(req.body.ytUrl);
   const youTubeId = url.searchParams.get('v');
   const interval = 240;
