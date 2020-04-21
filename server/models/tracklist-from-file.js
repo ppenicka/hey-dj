@@ -7,6 +7,4 @@ const TracklistFromFileSchema = new Schema ({
   tracklist: {type: String, required: true}
 });
 
-const model = mongoose.model('TracklistFromFile', TracklistFromFileSchema);
-
-module.exports = model;
+module.exports = mongoose.model('TracklistFromFile', TracklistFromFileSchema);

@@ -6,6 +6,4 @@ const TracklistFromYouTubeSchema = new Schema ({
   tracklist: {type: String, required: true}
 });
 
-const model = mongoose.model('TracklistFromYouTube', TracklistFromYouTubeSchema);
-
-module.exports = model;
+module.exports = mongoose.model('TracklistFromYouTube', TracklistFromYouTubeSchema);
