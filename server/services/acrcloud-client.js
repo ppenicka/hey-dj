@@ -2,8 +2,7 @@ const fs = require('fs');
 const crypto = require('crypto');
 const request = require('request');
 
-// Replace "###...###" below with your project's host, access_key and access_secret.
-const defaultOptions = {
+const options = {
   host: process.env.HOST,
   endpoint: '/v1/identify',
   signature_version: '1',
@@ -23,11 +22,9 @@ function sign (signString, accessSecret) {
     .digest().toString('base64');
 }
 
-/**
- * Identifies a sample of bytes
- */
-function identify (data, options, cb) {
-
+function requestMetadata (file) {
+  const bitmap = fs.readFileSync(`${file}`);
+  const data = Buffer.from(bitmap);
   const current_date = new Date();
   const timestamp = current_date.getTime() / 1000;
 
@@ -49,17 +46,13 @@ function identify (data, options, cb) {
     sample_bytes: data.length,
     timestamp: timestamp,
   };
-  request.post({
-    url: 'http://' + options.host + options.endpoint,
-    method: 'POST',
-    formData: formData
-  }, cb);
-}
 
-function requestMetadata (file) {
   return new Promise((resolve, reject) => {
-    var bitmap = fs.readFileSync(`${file}`);
-    identify(Buffer.from(bitmap), defaultOptions, function (err, httpResponse, body) {
+    request.post({
+      url: 'http://' + options.host + options.endpoint,
+      method: 'POST',
+      formData: formData
+    }, function (err, httpResponse, body) {
       if (err) reject(err);
       resolve(JSON.parse(body));
     });
