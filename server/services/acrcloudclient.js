@@ -1,17 +1,16 @@
 const fs = require('fs');
 const crypto = require('crypto');
 const request = require('request');
-const config = require('../config');
 
 // Replace "###...###" below with your project's host, access_key and access_secret.
 const defaultOptions = {
-  host: config.HOST,
+  host: process.env.HOST,
   endpoint: '/v1/identify',
   signature_version: '1',
   data_type: 'audio',
   secure: true,
-  access_key: config.ACCESS_KEY,
-  access_secret: config.ACCESS_SECRET
+  access_key: process.env.ACCESS_KEY,
+  access_secret: process.env.ACCESS_SECRET
 };
 
 function buildStringToSign (method, uri, accessKey, dataType, signatureVersion, timestamp) {
