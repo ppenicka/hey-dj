@@ -16,6 +16,7 @@ function App () {
   function onClick () {
     setInitial(false);
     setSpinning(true);
+
     if (url.length > 0) {
       getTracklistFromYouTube(url).then((data) => {
         setTracklist(data);
@@ -24,7 +25,6 @@ function App () {
     } else {
       const formData = new FormData();
       formData.append('file', selectedFile);
-
       getTracklistFromFile(formData).then((data) => {
         setTracklist(data);
         setSpinning(false);
@@ -43,9 +43,8 @@ function App () {
   return (
     <div className="App">
       {
-        (initial) ? (<InputForm onClick={onClick} setSelectedFile={setSelectedFile} setUrl={setUrl}></InputForm>) :
-          (spinning) ? (<Spinner></Spinner>) :
-            (<TrackList tracklist={tracklist} back={back}></TrackList>)
+        initial ? <InputForm onClick={onClick} setSelectedFile={setSelectedFile} setUrl={setUrl}></InputForm> :
+          spinning ? <Spinner></Spinner> : <TrackList tracklist={tracklist} back={back}></TrackList>
       }
     </div>
   );

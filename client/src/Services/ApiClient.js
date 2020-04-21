@@ -3,9 +3,7 @@ const baseUrl = 'http://localhost:3001';
 export const getTracklistFromYouTube = (url) =>
   fetch(baseUrl + '/youtube', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({ytUrl: url})
   })
     .then(res => res.json())

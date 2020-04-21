@@ -11,7 +11,7 @@ export default (props) => {
     setDropZoneText(file.name);
   }, []);
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop })
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   function handleUrlChange (event) {
     props.setUrl(event.target.value);
