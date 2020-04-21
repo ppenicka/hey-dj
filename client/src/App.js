@@ -18,7 +18,6 @@ function App () {
     setSpinning(true);
     if (url.length > 0) {
       getTracklistFromYouTube(url).then((data) => {
-        console.log(data);
         setTracklist(data);
         setSpinning(false);
       });
@@ -27,7 +26,6 @@ function App () {
       formData.append('file', selectedFile);
 
       getTracklistFromFile(formData).then((data) => {
-        console.log(data);
         setTracklist(data);
         setSpinning(false);
       });
