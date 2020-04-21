@@ -1,4 +1,4 @@
-# Hey DJ (what's that song?)
+# Hey DJ
 Web app that performs tracklist recognition in DJ sets through the ACRCloud music recognition API. You give it a recorded DJ set, it gives you a list of tracks that the DJ played during the set.
 
 # How it Works
@@ -7,9 +7,9 @@ Web app that performs tracklist recognition in DJ sets through the ACRCloud musi
 
 2. Set gets uploaded to the server from client, or downloaded to the server from YouTube.
 
-3. Multiple 12 second segments get extracted from the set in an interval specified by the `SEGMENT_INTERVAL` environment variable
+3. Multiple 12 second segments get extracted from the set in an interval specified by the `SEGMENT_INTERVAL` environment variable.
 
-4. Each segment gets sent to the ACRCloud API for identification
+4. Each segment gets sent to the ACRCloud API for identification.
 
 5. Once a response is received for all segments, a second attempt is performed for segments that were not successfully identified in the first run. New segments are extracted for the second attempt at original time plus half of HEY_DJ_INTERVAL, i.e. approximately in the middle between the original two segments.
 
@@ -41,8 +41,8 @@ This prodcedure describes how to launch the application in a development or test
 
 4. Log in to [ACRCloud Console](https://console.acrcloud.com/) and navigate to *Project -> Audio & Video Recognition*. Set up a project with the following settings:
 
-- *Audio Source*: Recorded Audio
-- *Enable 3rd Party ID Integration*: enabled
+- **Audio Source**: Recorded Audio
+- **Enable 3rd Party ID Integration**: enabled
 
 5. Set up the following environment variables in your environment, or create a *server/.env* file and specify them in the file:
 
