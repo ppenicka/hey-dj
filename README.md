@@ -1,7 +1,7 @@
 # Hey DJ
 Web app that performs tracklist recognition in DJ sets through the ACRCloud music recognition API. You give it a recorded DJ set, it gives you a list of tracks that the DJ played during the set.
 
-# How it Works
+## How it Works
 
 1. User provides a recorded DJ set either through a file upload or YouTube link.
 
@@ -17,7 +17,7 @@ Web app that performs tracklist recognition in DJ sets through the ACRCloud musi
 
 7. Client renders a tracklist, displaying track name, artist and links to 3rd party services when available (Spotify, YouTube, Deezer and MusicBrainz).
 
-# Tech Stack
+## Tech Stack
 
 The application is utilizes the following technologies:
 
@@ -29,7 +29,7 @@ The application is utilizes the following technologies:
 - **FFMPEG** for audio file manipulation
 - **ACRCloud API** for recognition of extracted audio segments
 
-# Installation
+## Installation
 
 This prodcedure describes how to launch the application in a development or testing environment, with client and server on the same machine. In production environments the client and server would be deployed on different machines.
 
