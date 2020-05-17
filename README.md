@@ -5,7 +5,7 @@ Web app that performs tracklist recognition in DJ sets through the ACRCloud musi
 
 1. User provides a recorded DJ set either through a file upload or YouTube link.
 
-![Home page of the app](/docs/hey_dj_home.PNG)
+![Home page of the app](/docs/hey_dj_home_borders.PNG)
 
 1. Set gets uploaded to the server from client, or downloaded to the server from YouTube.
 
