@@ -5,17 +5,21 @@ Web app that performs tracklist recognition in DJ sets through the ACRCloud musi
 
 1. User provides a recorded DJ set either through a file upload or YouTube link.
 
-2. Set gets uploaded to the server from client, or downloaded to the server from YouTube.
+![Home page of the app](/docs/hey_dj_home.PNG)
 
-3. Multiple 12 second segments get extracted from the set in an interval specified by the `SEGMENT_INTERVAL` environment variable.
+1. Set gets uploaded to the server from client, or downloaded to the server from YouTube.
 
-4. Each segment gets sent to the ACRCloud API for identification.
+2. Multiple 12 second segments get extracted from the set in an interval specified by the `SEGMENT_INTERVAL` environment variable.
 
-5. Once a response is received for all segments, a second attempt is performed for segments that were not successfully identified in the first run. New segments are extracted for the second attempt at original time plus half of HEY_DJ_INTERVAL, i.e. approximately in the middle between the original two segments.
+3. Each segment gets sent to the ACRCloud API for identification.
 
-6. Results are pruned of duplicate results, stored in persistent cache for future identical requests, and sent back to the client.
+4. Once a response is received for all segments, a second attempt is performed for segments that were not successfully identified in the first run. New segments are extracted for the second attempt at original time plus half of HEY_DJ_INTERVAL, i.e. approximately in the middle between the original two segments.
 
-7. Client renders a tracklist, displaying track name, artist and links to 3rd party services when available (Spotify, YouTube, Deezer and MusicBrainz).
+5. Results are pruned of duplicate results, stored in persistent cache for future identical requests, and sent back to the client.
+
+6. Client renders a tracklist, displaying track name, artist and links to 3rd party services when available (Spotify, YouTube, Deezer and MusicBrainz).
+
+![Home page of the app](/docs/hey_dj_results.PNG)
 
 ## Tech Stack
 
