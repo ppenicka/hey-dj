@@ -32,7 +32,5 @@
     "gulp-load-plugins": "^2.0.0",
     "gulp-replace": "^1.0.0"
   },
-  "dependencies": {
-    "react": "^16.8.6"
-  }
+  "dependencies": {}
 }
