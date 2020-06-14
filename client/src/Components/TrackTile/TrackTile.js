@@ -7,7 +7,7 @@ export default (props) => (
       {
         !props.track.status ? 'no data yet' :
           props.track.status.msg === 'Success' ?
-            props.track.metadata.music[0].artists[0].name + ' - ' + props.track.metadata.music[0].title :
+            props.time + ':' + props.track.metadata.music[0].artists[0].name + ' - ' + props.track.metadata.music[0].title :
             '--- unidentified ---'
       }
     </div>

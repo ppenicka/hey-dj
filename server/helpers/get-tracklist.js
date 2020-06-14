@@ -5,6 +5,7 @@ const identifySegment = require('./identify-segment');
 function getTracklist (input, dirname, extension, interval) {
   return new Promise((resolve, reject) => {
     const results = [];
+    const times = [];
     fs.mkdirSync(dirname);
     const source = new ffmpeg(input);
     source.then((audio) => {
@@ -13,41 +14,55 @@ function getTracklist (input, dirname, extension, interval) {
 
       // identify segments
       for (let i = 0; i < segments; i++) {
-        results[i] = identifySegment(source, 60 + i * interval, 72 + i * interval, `${dirname}/${i}.${extension}`);
+        const startTime = 60 + i * interval;
+        results[i] = identifySegment(source, startTime, startTime + 12, `${dirname}/${i}.${extension}`);
+        times[i] = startTime;
       }
 
       // second try for unidentified
       Promise.all(results).then((results) => {
         for (let i = 0; i < segments; i++) {
           if (results[i].status.code === 1001) {
-            results[i] = identifySegment(source, 60 + i * interval + Math.floor(interval / 2), 72 + i * interval + Math.floor(interval / 2), `${dirname}/${i}.${extension}`);
+            const startTime = 60 + i * interval + Math.floor(interval / 2);
+            results[i] = identifySegment(source, startTime, startTime + 12, `${dirname}/${i}.${extension}`);
+            times[i] = startTime;
           }
         }
 
-        // merge duplicate results
         Promise.all(results).then((results) => {
-          let i = 0;
-          while (i < segments - 1) {
-            if ((results[i].status.code !== 0) && (results[i + 1].status.code !== 0) ||
-              ((results[i].status.code === 0) && (results[i + 1].status.code === 0) &&
-                (results[i].metadata.music[0].title === results[i + 1].metadata.music[0].title) &&
-                (results[i].metadata.music[0].duration === results[i + 1].metadata.music[0].duration))) {
-              results.splice(i + 1, 1);
-              segments--;
-            } else i++;
+          // build Map from results and times
+          let map = {};
+          for (let i = 0; i < segments; i++) {
+            map[times[i]] = results[i];
           }
 
+
+
+
+          // // merge duplicate results
+          // Promise.all(results).then((results) => {
+          //   let i = 0;
+          //   while (i < segments - 1) {
+          //     if ((results[i].status.code !== 0) && (results[i + 1].status.code !== 0) ||
+          //       ((results[i].status.code === 0) && (results[i + 1].status.code === 0) &&
+          //         (results[i].metadata.music[0].title === results[i + 1].metadata.music[0].title) &&
+          //         (results[i].metadata.music[0].duration === results[i + 1].metadata.music[0].duration))) {
+          //       results.splice(i + 1, 1);
+          //       segments--;
+          //     } else i++;
+          //   }
+
           console.log('######## Identified tracklist: ########'); // eslint-disable-line no-console
-          for (let i = 0; i < segments; i++) {
-            if (results[i].status.code === 0) {
-              console.log(`Track #${i + 1}: ${results[i].metadata.music[0].artists[0].name} - ${results[i].metadata.music[0].title}`);  // eslint-disable-line no-console
+          for (let time in map) {
+            if (map[time].status.code === 0) {
+              console.log(`${time}: ${map[time].metadata.music[0].artists[0].name} - ${map[time].metadata.music[0].title}`);  // eslint-disable-line no-console
             } else {
-              console.log(`Track #${i + 1}: unidentified`); // eslint-disable-line no-console
+              console.log(`${time}: unidentified`); // eslint-disable-line no-console
             }
           }
 
           // send tracklist back to client
-          resolve(results);
+          resolve(map);
 
         }).then(() => {
           fs.rmdirSync(dirname);  // delete temporary directory

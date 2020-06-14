@@ -26,6 +26,7 @@ function App () {
       const formData = new FormData();
       formData.append('file', selectedFile);
       getTracklistFromFile(formData).then((data) => {
+        console.log(data);
         setTracklist(data);
         setSpinning(false);
       });

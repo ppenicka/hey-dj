@@ -5,7 +5,7 @@ import TrackTile from '../TrackTile/TrackTile';
 
 export default (props) => (
   <ul>
-    {props.tracklist.map(track => <TrackTile track={track}></TrackTile>)}
+    {Object.keys(props.tracklist).map(key => <TrackTile track={props.tracklist[key]} time={key}></TrackTile>)}
     <button className="Button" onClick={props.back}>&lt; back</button>
   </ul>
 );
