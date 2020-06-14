@@ -30,7 +30,7 @@ function getTracklist (input, dirname, extension, interval) {
         }
 
         Promise.all(results).then((results) => {
-          // build Map from results and times
+          // build Map from times and results
           let map = {};
           for (let i = 0; i < segments; i++) {
             map[times[i]] = results[i];
@@ -61,7 +61,7 @@ function getTracklist (input, dirname, extension, interval) {
             }
           }
 
-          // send tracklist back to client
+          // return tracklist with times
           resolve(map);
 
         }).then(() => {

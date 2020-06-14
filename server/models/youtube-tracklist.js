@@ -1,9 +1,9 @@
 const mongoose = require('../db');
 const Schema = mongoose.Schema;
 
-const TracklistFromYouTubeSchema = new Schema ({
+const YouTubeTrackListSchema = new Schema ({
   youTubeId: {type: String, required: true},
   tracklist: {type: String, required: true}
 });
 
-module.exports = mongoose.model('TracklistFromYouTube', TracklistFromYouTubeSchema);
+module.exports = mongoose.model('YouTubeTrackList', YouTubeTrackListSchema);
