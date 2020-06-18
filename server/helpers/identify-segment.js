@@ -18,7 +18,7 @@ function identifySegment (source, start, end, output) {
         });
       });
     } catch (e) {
-      console.log(`Identification of segment at second ${start} failed with error message: ${e}`);
+      reject(`Identification of segment at second ${start} failed with error message: ${e}`);
     }
   });
 }
