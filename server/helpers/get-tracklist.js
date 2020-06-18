@@ -23,7 +23,7 @@ function getTracklist (input, dirname, extension, interval) {
           for (let i = 0; i < segments; i++) {
             if (results[i].status.code === 1001) {
               const start = 60 + i * interval + Math.floor(interval / 2);
-              results[i] = identifySegment(source, start , start + 12, `${dirname}/${i}.${extension}`);
+              results[i] = identifySegment(source, start, start + 12, `${dirname}/${i}.${extension}`);
             }
           }
 
@@ -31,10 +31,7 @@ function getTracklist (input, dirname, extension, interval) {
           Promise.all(results).then((results) => {
             let i = 0;
             while (i < segments - 1) {
-              if ((results[i].status.code !== 0) && (results[i + 1].status.code !== 0) ||
-                ((results[i].status.code === 0) && (results[i + 1].status.code === 0) &&
-                  (results[i].metadata.music[0].title === results[i + 1].metadata.music[0].title) &&
-                  (results[i].metadata.music[0].duration === results[i + 1].metadata.music[0].duration))) {
+              if (nextIsDuplicate(results, i)) {
                 results.splice(i + 1, 1);
                 segments--;
               } else i++;
@@ -62,6 +59,14 @@ function getTracklist (input, dirname, extension, interval) {
       reject(`Error while identifyting ${input}. Identifiction failed with error message: ${e}`);
     }
   });
+}
+
+function nextIsDuplicate (results, i) {
+  return (results[i].status.code !== 0) && (results[i + 1].status.code !== 0) ||
+    ((results[i].status.code === 0) && (results[i + 1].status.code === 0) &&
+      (results[i].metadata.music[0].title === results[i + 1].metadata.music[0].title) &&
+      (results[i].metadata.music[0].duration === results[i + 1].metadata.music[0].duration))
+    ? true : false;
 }
 
 module.exports = getTracklist;
