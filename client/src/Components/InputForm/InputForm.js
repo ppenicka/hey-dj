@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
-import './InputForm.css';
 import { useDropzone } from 'react-dropzone';
+import './InputForm.css';
 
 export default (props) => {
   const [dropZoneText, setDropZoneText] = useState('... drag & drop a recorded set, or click to select from filesystem ...');
