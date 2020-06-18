@@ -1,6 +1,7 @@
 const ffmpeg = require('ffmpeg');
 const fs = require('fs');
 const identifySegment = require('./identify-segment');
+const TrackMetadata = require('../models/track-metadata');
 
 function getTracklist (input, dirname, extension, interval) {
   return new Promise((resolve, reject) => {
@@ -29,11 +30,23 @@ function getTracklist (input, dirname, extension, interval) {
           }
         }
 
+        // build Map from times and results
         Promise.all(results).then((results) => {
-          // build Map from times and results
           let map = {};
           for (let i = 0; i < segments; i++) {
-            map[times[i]] = results[i];
+            if (results[i].status.code === 0) {
+              map[times[i]] = results[i].metadata.music.acrid;
+              TrackMetadata.find({ acrid: results[i].metadata.music.acrid }).then((metadata) => {
+                if (metadata.length === 0) {
+                  TrackMetadata.create({
+                    acrid: results[i].metadata.music.acrid,
+                    metadata: results[i].metadata
+                  })
+                }
+              })
+            } else {
+              map[times[i]] = null;
+            }
           }
 
 
@@ -54,8 +67,8 @@ function getTracklist (input, dirname, extension, interval) {
 
           console.log('######## Identified tracklist: ########'); // eslint-disable-line no-console
           for (let time in map) {
-            if (map[time].status.code === 0) {
-              console.log(`${time}: ${map[time].metadata.music[0].artists[0].name} - ${map[time].metadata.music[0].title}`);  // eslint-disable-line no-console
+            if (map[time] !== null) {
+              console.log(`${time}: ${map[time]}`);  // eslint-disable-line no-console
             } else {
               console.log(`${time}: unidentified`); // eslint-disable-line no-console
             }
