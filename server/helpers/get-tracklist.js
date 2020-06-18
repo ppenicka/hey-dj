@@ -14,14 +14,16 @@ function getTracklist (input, dirname, extension, interval) {
 
         // identify segments
         for (let i = 0; i < segments; i++) {
-          results[i] = identifySegment(source, 60 + i * interval, 72 + i * interval, `${dirname}/${i}.${extension}`);
+          const start = 60 + i * interval;
+          results[i] = identifySegment(source, start, start + 12, `${dirname}/${i}.${extension}`);
         }
 
         // second try for unidentified
         Promise.all(results).then((results) => {
           for (let i = 0; i < segments; i++) {
             if (results[i].status.code === 1001) {
-              results[i] = identifySegment(source, 60 + i * interval + Math.floor(interval / 2), 72 + i * interval + Math.floor(interval / 2), `${dirname}/${i}.${extension}`);
+              const start = 60 + i * interval + Math.floor(interval / 2);
+              results[i] = identifySegment(source, start , start + 12, `${dirname}/${i}.${extension}`);
             }
           }
 
