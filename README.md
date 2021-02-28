@@ -53,7 +53,7 @@ This prodcedure describes how to launch the application in a development or test
 - `ACCESS_KEY`: ACRCloud project access key
 - `ACCESS_SECRET`: ACRCloud project secret key
 - `HOST`: ACRCloud project host URL
-- `DB_URL`: URL of your MongoDB instance, including database name (e.g. *mongodb:localhost:27017/hey-dj*)
+- `DB_URL`: URL of your MongoDB instance, including database name (e.g. *mongodb://localhost:27017/hey-dj*)
 - `PORT`: port number on which the server should run
 - `SEGMENT_INTERVAL`: interval between segments extracted from the set, specified in seconds (if unspecified, a default value of *120* is used)
 
