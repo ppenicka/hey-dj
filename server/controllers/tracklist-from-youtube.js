@@ -16,13 +16,13 @@ function downloadYouTube (req, res) {
       res.status(200).send(cached[0]['tracklist']);
     } else {
       const YD = new YoutubeMp3Downloader({
-        'ffmpegPath': '/usr/bin/ffmpeg',
+        'ffmpegPath': '/usr/local/bin/ffmpeg',
         'outputPath': './tmp',
         'youtubeVideoQuality': 'lowest',
         'queueParallelism': 4,
         'progressTimeout': 2000
       });
-
+      console.log('hola1');
       YD.download(youTubeId, youTubeId + '.mp3');
 
       YD.on('finished', function () {
@@ -34,6 +34,7 @@ function downloadYouTube (req, res) {
           res.status(200).send(results);
         });
       });
+      console.log('hola2');
 
       YD.on('error', function (error) {
         console.log(error);                     // eslint-disable-line no-console
